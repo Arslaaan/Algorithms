@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        MinCostToConnectAllPointsPrim/solution.cpp
+        NetworkDelayTime/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        MinCostToConnectAllPointsPrim/test.cpp
+        NetworkDelayTime/test.cpp
 )
 
 target_link_libraries(
