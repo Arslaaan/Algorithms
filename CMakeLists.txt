@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        NetworkDelayTime/solution.cpp
+        CheapestFlightsWithKStops/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        NetworkDelayTime/test.cpp
+        CheapestFlightsWithKStops/test.cpp
 )
 
 target_link_libraries(
