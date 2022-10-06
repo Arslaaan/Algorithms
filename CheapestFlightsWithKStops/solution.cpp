@@ -14,96 +14,83 @@ class Solution {
 
     struct Cost {
         int weight;
-        int verticesInPath;
+        int pathLength;
 
         Cost() {
             weight = numeric_limits<int>::max();
-            verticesInPath = numeric_limits<int>::max();
+            pathLength = numeric_limits<int>::max();
         }
 
         Cost(int weight_, int vertices_) {
             weight = weight_;
-            verticesInPath = vertices_;
+            pathLength = vertices_;
         }
     };
 
-    static int compare(int x, int y) {
-        if (x == y) {
-            return 0;
+    struct Node {
+        int number;
+        Cost cost;
+
+        explicit Node(int i) {
+            number = i;
+            cost = Cost();
         }
-        if (x < y) {
-            return 1;
-        } else {
-            return -1;
+
+        explicit Node(int i, int w, int length) {
+            number = i;
+            cost = Cost(w, length);
         }
-    }
+
+        bool operator>(const Node &other) const {
+            if (cost.weight == other.cost.weight) {
+                return cost.pathLength > other.cost.pathLength;
+            }
+            return cost.weight > other.cost.weight;
+        }
+    };
 
 public:
     int findCheapestPrice(int n, vector<vector<int>> &flights, int src, int dst, int k) {
-        vector<vector<Cost>> costs(n); // vertice -> cost1, cost2 ... because we minimize 2 measurements
-        for (auto &v: costs) {
-            v.emplace_back();
+        vector<Node> vertices;
+        vertices.reserve(n);
+        for (int i = 0; i < n; ++i) {
+            vertices.emplace_back(i);
         }
         vector<vector<pair<int, int>>> adjacencyList(n); // adjacencyList[i] == (neighbourIndex, edgeWeightToNeighbour)
         for (const auto &flight: flights) {
             adjacencyList[flight.at(0)].emplace_back(flight.at(1), flight.at(2));
         }
-        deque<int> queue;
-        int maxVerticesInPath = k + 2;
 
-        costs[src].at(0).weight = 0;
-        costs[src].at(0).verticesInPath = 1;
-        queue.push_back(src);
+        priority_queue<Node, vector<Node>, greater<>> queue; // todo проверить что находится минимум
+        int maxLength = k + 2;
+        vertices[src].cost.weight = 0;
+        vertices[src].cost.pathLength = 1;
+        queue.push(vertices[src]);
 
         while (!queue.empty()) {
-            int current = queue.front();
-            queue.pop_front();
+            Node current = queue.top();
+            queue.pop();
 
-            for (const auto &neighbour: adjacencyList[current]) {
-                for (const auto &currentCost: costs[current]) {
-                    int newWeight = currentCost.weight + neighbour.second;
-                    int newVerticesInPath = currentCost.verticesInPath + 1;
+            if (current.number == dst) {
+                return current.cost.weight;
+            }
 
-                    if (newVerticesInPath <= maxVerticesInPath) {
-                        vector<Cost> newCostsForNeighbour;
-                        vector<Cost> &currentCostsForNeighbour = costs[neighbour.first];
-                        bool hasRelaxation = false;
-                        for (auto &currentCostOfNeighbour: currentCostsForNeighbour) {
-                            int weightCompare = compare(newWeight, currentCostOfNeighbour.weight);
-                            int lengthCompare = compare(newVerticesInPath, currentCostOfNeighbour.verticesInPath);
-                            if (weightCompare > 0 && lengthCompare > 0 ||
-                                weightCompare == 0 && lengthCompare > 0 ||
-                                weightCompare > 0 && lengthCompare == 0) {
-                                //1 происходит изменение стоимости
-                                currentCostOfNeighbour.weight = newWeight;
-                                currentCostOfNeighbour.verticesInPath = newVerticesInPath;
-                                hasRelaxation = true;
-                            } else if (weightCompare < 0 && lengthCompare > 0 ||
-                                       weightCompare > 0 && lengthCompare < 0) {
-                                //2 происходит добавление нового варианта
-                                newCostsForNeighbour.emplace_back(newWeight, newVerticesInPath);
-                                hasRelaxation = true;
-                            }   //3 релаксация не произошла
-                        }
-                        if (!currentCostsForNeighbour.empty()) {
-                            currentCostsForNeighbour.insert(currentCostsForNeighbour.end(),
-                                                            newCostsForNeighbour.begin(), newCostsForNeighbour.end());
-                        }
-                        if (hasRelaxation && find(queue.begin(), queue.end(), neighbour.first) == queue.end()) {
-                            queue.push_back(neighbour.first);
+            for (const auto &neighbour: adjacencyList[current.number]) {
+                int newWeight = current.cost.weight + neighbour.second;
+                int newLength = current.cost.pathLength + 1;
+                Cost &costNeighbour = vertices[neighbour.first].cost;
+                if (newLength <= maxLength) {
+                    if (newWeight < costNeighbour.weight || newLength < costNeighbour.pathLength) {
+                        queue.emplace(neighbour.first, newWeight, newLength);
+                        if (newWeight < costNeighbour.weight) {
+                            vertices[neighbour.first].cost.weight = newWeight;
+                            vertices[neighbour.first].cost.pathLength = newLength;
                         }
                     }
                 }
             }
         }
 
-        int result = numeric_limits<int>::max();
-        for (const auto &cost: costs[dst]) {
-            result = min(cost.weight, result);
-        }
-        if (result == numeric_limits<int>::max()) {
-            result = -1;
-        }
-        return result;
+        return -1;
     }
 };
