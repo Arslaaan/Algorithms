@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        CheapestFlightsWithKStops/solution.cpp
+        PathWithMinimumEffort/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        CheapestFlightsWithKStops/test.cpp
+        PathWithMinimumEffort/test.cpp
 )
 
 target_link_libraries(
