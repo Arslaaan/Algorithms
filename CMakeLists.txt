@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        PathWithMinimumEffort/solution.cpp
+        CourseSchedule/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        PathWithMinimumEffort/test.cpp
+        CourseSchedule/test.cpp
 )
 
 target_link_libraries(
