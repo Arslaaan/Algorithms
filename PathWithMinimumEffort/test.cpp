@@ -22,7 +22,7 @@ TEST(DEFAULT, test1) {
     ASSERT_THAT(solution.minimumEffortPath(points), 1);
 }
 
-TEST(DEFAULT, 2) {
+TEST(DEFAULT, test2) {
     vector<vector<int>> points = {{1, 2, 1, 1, 1},
                                   {1, 2, 1, 2, 1},
                                   {1, 2, 1, 2, 1},
@@ -31,4 +31,26 @@ TEST(DEFAULT, 2) {
     };
     Solution solution;
     ASSERT_THAT(solution.minimumEffortPath(points), 0);
+}
+
+TEST(DEFAULT, test3) {
+    vector<vector<int>> points = {{1, 10, 6, 7, 9, 10, 4, 9}
+    };
+    Solution solution;
+    ASSERT_THAT(solution.minimumEffortPath(points), 9);
+}
+
+TEST(DEFAULT, test4) {
+    vector<vector<int>> points = {
+            {1},
+            {10},
+            {6},
+            {7},
+            {9},
+            {10},
+            {4},
+            {9}
+    };
+    Solution solution;
+    ASSERT_THAT(solution.minimumEffortPath(points), 9);
 }
