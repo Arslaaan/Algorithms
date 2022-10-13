@@ -19,14 +19,6 @@ TEST(DEFAULT, test1) {
     ASSERT_THAT(solution.canFinish(2, points), false);
 }
 
-TEST(DEFAULT, test4) {
-    vector<vector<int>> points = {
-            {0, 1},
-    };
-    Solution solution;
-    ASSERT_THAT(solution.canFinish(2, points), true);
-}
-
 TEST(DEFAULT, test2) {
     vector<vector<int>> points = {
             {6,  10},
@@ -45,17 +37,19 @@ TEST(DEFAULT, test2) {
 
 TEST(DEFAULT, test3) {
     vector<vector<int>> points = {
-            {6,  10},
-            {4,  10},
-            {10, 1},
-            {10, 8},
-            {10, 9},
-            {6,  7},
-            {7,  8},
-            {2,  7},
-            {2,  9},
-            {11, 12},
+            {1, 4},
+            {2, 4},
+            {3, 1},
+            {3, 2},
     };
     Solution solution;
-    ASSERT_THAT(solution.canFinish(13, points), false);
+    ASSERT_THAT(solution.canFinish(5, points), true);
+}
+
+TEST(DEFAULT, test4) {
+    vector<vector<int>> points = {
+            {0, 1},
+    };
+    Solution solution;
+    ASSERT_THAT(solution.canFinish(2, points), true);
 }
