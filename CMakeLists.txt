@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        graphs/CourseSchedule/solution.cpp
+        heap/KlargestElementInArray/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        graphs/CourseSchedule/test.cpp
+        heap/KlargestElementInArray/test.cpp
 )
 
 target_link_libraries(
