@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        heap/TopKFrequentElements/solution.cpp
+        heap/KlargestElementInStream/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        heap/TopKFrequentElements/test.cpp
+        heap/KlargestElementInStream/test.cpp
 )
 
 target_link_libraries(
