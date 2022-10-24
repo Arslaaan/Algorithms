@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        heap/LastStoneWeight/solution.cpp
+        heap/KWeakestRowsInMatrix/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        heap/LastStoneWeight/test.cpp
+        heap/KWeakestRowsInMatrix/test.cpp
 )
 
 target_link_libraries(
