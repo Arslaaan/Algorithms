@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        heap/KSmallestElementInSortedMatrix/solution.cpp
+        heap/KClosestPointsToOrigin/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        heap/KSmallestElementInSortedMatrix/test.cpp
+        heap/KClosestPointsToOrigin/test.cpp
 )
 
 target_link_libraries(
