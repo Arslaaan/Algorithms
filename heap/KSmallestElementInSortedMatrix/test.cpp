@@ -23,3 +23,15 @@ TEST(DEFAULT, 1) {
     Solution solution;
     ASSERT_THAT(solution.kthSmallest(points, k), -5);
 }
+
+TEST(DEFAULT, 2) {
+    int k = 2;
+    vector<vector<int>> points = {
+            {1, 2},
+            {1, 3},
+    };
+    int expected = 1;
+
+    Solution solution;
+    ASSERT_THAT(solution.kthSmallest(points, k), expected);
+}
