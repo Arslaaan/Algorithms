@@ -14,14 +14,14 @@ set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 add_executable(Algorithms
-        heap/KClosestPointsToOrigin/solution.cpp
+        heap/FindMedianFromDataStream/solution.cpp
         )
 
 enable_testing()
 
 add_executable(
         Tests
-        heap/KClosestPointsToOrigin/test.cpp
+        heap/FindMedianFromDataStream/test.cpp
 )
 
 target_link_libraries(
