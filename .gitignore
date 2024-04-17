@@ -33,3 +33,5 @@
 
 # clion
 /.idea/
+/.vscode
+/build

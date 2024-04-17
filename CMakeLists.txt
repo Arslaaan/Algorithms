@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.16)
 project(Algorithms)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_BUILD_TYPE Debug)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -13,15 +14,15 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(Algorithms
-        heap/FindMedianFromDataStream/solution.cpp
-        )
+# add_executable(Algorithms
+#         "yandex/1/solution.cpp"
+# )
 
 enable_testing()
 
 add_executable(
         Tests
-        heap/FindMedianFromDataStream/test.cpp
+        "yandex/Cheating/test.cpp"
 )
 
 target_link_libraries(
